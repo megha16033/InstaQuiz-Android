@@ -24,6 +24,9 @@ public class StartActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+
+
         new GetLiveQuizTask().execute();
     }
 
@@ -72,7 +75,7 @@ public class StartActivity extends Activity {
             }
             Document doc=null;
             try {
-                String url = "http://web.insta-quiz.appspot.com/publishQuiz?quiztitle="+livequiztitle;
+                String url = "http://webm.insta-quiz.appspot.com/publishQuiz?quiztitle="+livequiztitle;
                  doc = Jsoup.connect(url).get();
                 //System.out.println(doc);
             }
@@ -105,6 +108,9 @@ public class StartActivity extends Activity {
 
                 Button getstatbtn = (Button)findViewById(R.id.getstatbtn);
                 getstatbtn.setVisibility(View.VISIBLE);
+
+                Button answerbtn = (Button)findViewById(R.id.answerbtn);
+                answerbtn.setVisibility(View.GONE);
 
             }
             else

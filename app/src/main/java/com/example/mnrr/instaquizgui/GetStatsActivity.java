@@ -1,14 +1,20 @@
 package com.example.mnrr.instaquizgui;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 
 public class GetStatsActivity extends ActionBarActivity {
+
+    ProgressBar pbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +31,37 @@ public class GetStatsActivity extends ActionBarActivity {
         }
         WebView myWebView = (WebView) findViewById(R.id.webview);
         myWebView.setWebViewClient(new WebViewClient());
-        myWebView.loadUrl("http://web.insta-quiz.appspot.com/getStats?quiztitle=" + livequiztitle);
+        myWebView.loadUrl("http://webm.insta-quiz.appspot.com/getStats?quiztitle=" + livequiztitle);
     }
+
+    public class WebViewClient extends android.webkit.WebViewClient
+    {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            // TODO Auto-generated method stub
+            view.loadUrl(url);
+            return true;
+        }
+        @Override
+        public void onPageFinished(WebView view, String url) {
+
+            // TODO Auto-generated method stub
+
+            super.onPageFinished(view, url);
+            pbar.setVisibility(View.GONE);
+
+        }
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,5 +85,9 @@ public class GetStatsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    public void goToHome(View v)
+    {
+        Intent goHomeIntent = new Intent(GetStatsActivity.this, StartActivity.class);
+        startActivity(goHomeIntent);
+    }
 }

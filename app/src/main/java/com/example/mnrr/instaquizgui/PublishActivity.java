@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,15 +22,14 @@ import java.io.IOException;
 
 public class PublishActivity extends ActionBarActivity {
 
-
+    ProgressBar pbar;
     String buttonsContent="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
+        pbar = (ProgressBar)findViewById(R.id.progressBar1);
         new CreateButtonsTask().execute();
-
-
     }
 
     @Override
@@ -74,7 +75,7 @@ public class PublishActivity extends ActionBarActivity {
         {
             Document doc=null;
             try {
-                doc = Jsoup.connect("http://www.web.insta-quiz.appspot.com/callPublish").get();
+                doc = Jsoup.connect("http://www.webm.insta-quiz.appspot.com/callPublish").get();
                 //System.out.println(doc);
             }
             catch(IOException e)
@@ -90,7 +91,6 @@ public class PublishActivity extends ActionBarActivity {
             //((TextView)findViewById (R.id.myTextView)).setText (result);
             System.out.println("onpost");
             buttonsContent = "";
-
             Elements links = document.select("div.form-group");
             for(Element ele:links)
             {
@@ -98,6 +98,7 @@ public class PublishActivity extends ActionBarActivity {
                 buttonsContent = buttonsContent + ele.text() + "; " ;
                 System.out.println(buttonsContent);
             }
+            pbar.setVisibility(View.INVISIBLE);
             buttonsContent = buttonsContent.substring(0,buttonsContent.length()-2);
             //Intent publishIntent = new Intent(StartActivity.this, PublishActivity.class);
             ///publishIntent.putExtra("buttons", buttonsContent);
@@ -105,27 +106,28 @@ public class PublishActivity extends ActionBarActivity {
             System.out.println("buttonscontent:" + buttonsContent);
             String buttons[] = buttonsContent.split("; ");
             LinearLayout pbll = (LinearLayout)findViewById(R.id.publishButtons);
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
             View.OnClickListener clicks=new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-
                     Button b = (Button)v;
                     String quiztitlefrombutton = b.getText().toString().substring(8);
                     Intent startIntent = new Intent(PublishActivity.this, StartActivity.class);
                     startIntent.putExtra("livequiztitle", quiztitlefrombutton);
                     startActivity(startIntent);
-
-
                 }
             };
+
+
             for(int i=0;i<buttons.length;i++)
             {
                 Button button1=new Button(getApplicationContext());
                 button1.setText(buttons[i]);
                 button1.setId(i);
                 button1.setOnClickListener(clicks);
-                pbll.addView(button1);
+                pbll.addView(button1,lp);
 
             }
         }

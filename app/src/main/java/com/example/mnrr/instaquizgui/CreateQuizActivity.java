@@ -117,7 +117,7 @@ public class CreateQuizActivity extends ActionBarActivity {
                 String op4 = option4Text.getText().toString();
                 String answer = answerText.getText().toString();
 
-                String url = "http://web.insta-quiz.appspot.com/saveQuestion?quiztitle="+quiztitle+"&question="+question+"&op1="+op1+"&op2="+op2+"&op3="+op3+"&op4="+op4+"&answer="+answer;
+                String url = "http://webm.insta-quiz.appspot.com/saveQuestion?quiztitle="+quiztitle+"&question="+question+"&op1="+op1+"&op2="+op2+"&op3="+op3+"&op4="+op4+"&answer="+answer;
                 doc = Jsoup.connect(url).get();
                 //System.out.println(doc);
             }
