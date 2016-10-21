@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.mnrr.instaquizgui.AnswerActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <ProgressBar
         android:id="@+id/progressBar1"
@@ -20,15 +21,29 @@
         android:layout_below="@+id/progressBar1"
         />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:layout_gravity="center_horizontal"
-        android:text="Home"
-        android:onClick="goToHome"
-        android:layout_alignParentBottom="true"/>
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:paddingBottom="0dp"
+        android:gravity="center_horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="Home"
+            android:onClick="goToHome"
+            android:layout_marginBottom="0dp"
+            android:textAllCaps="false"
+            />
+
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>

@@ -1,7 +1,10 @@
 package com.example.mnrr.instaquizgui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,17 +13,33 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 public class AnswerActivity extends ActionBarActivity {
 
     ProgressBar pbar;
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
         pbar = (ProgressBar)findViewById(R.id.progressBar1);
+        boolean net = isNetworkAvailable();
+        if(!net)
+        {
+            Toast.makeText(this, "Network not available!", Toast.LENGTH_SHORT).show();
+            //Intent goHomeIntent = new Intent(this, StartActivity.class);
+            //startActivity(goHomeIntent);
+        }
+
         Bundle basket = getIntent().getExtras();
         String code="";
         if(basket != null) {

@@ -1,13 +1,17 @@
 package com.example.mnrr.instaquizgui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +24,26 @@ import java.io.IOException;
 
 public class StartActivity extends Activity {
 
+    ProgressBar pbar;
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
-
+        pbar = (ProgressBar)findViewById(R.id.progressBar2);
+        boolean net = isNetworkAvailable();
+        if(!net)
+        {
+            Toast.makeText(this,"Network not available!",Toast.LENGTH_SHORT).show();
+            //Intent goHomeIntent = new Intent(this, StartActivity.class);
+            //startActivity(goHomeIntent);
+        }
 
         new GetLiveQuizTask().execute();
     }
@@ -64,15 +82,18 @@ public class StartActivity extends Activity {
         protected Document doInBackground(Void... params)
 
         {
+
             Bundle basket = getIntent().getExtras();
             String livequiztitle="";
             if(basket != null) {
+
                 livequiztitle = basket.getString("livequiztitle");
             }
             if(livequiztitle.equals("")||livequiztitle==null)
             {
                 return null;
             }
+            pbar.setVisibility(View.VISIBLE);
             Document doc=null;
             try {
                 String url = "http://webm.insta-quiz.appspot.com/publishQuiz?quiztitle="+livequiztitle;
@@ -112,10 +133,12 @@ public class StartActivity extends Activity {
                 Button answerbtn = (Button)findViewById(R.id.answerbtn);
                 answerbtn.setVisibility(View.GONE);
 
+                pbar.setVisibility(View.GONE);
+
             }
             else
             {
-                Toast.makeText(getApplicationContext(),"Could not load document!",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"Could not load document!",Toast.LENGTH_SHORT).show();
             }
             //EditText quiztitletext = (EditText)findViewById(R.id.quiztitle);
             //quiztitletext.setText(prevquiztitle);

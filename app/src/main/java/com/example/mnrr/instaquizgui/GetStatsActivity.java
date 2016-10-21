@@ -1,27 +1,61 @@
 package com.example.mnrr.instaquizgui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 
 
 public class GetStatsActivity extends ActionBarActivity {
 
     ProgressBar pbar;
+    String livequiztitle="";
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_stats);
+
+
+        boolean net = isNetworkAvailable();
+        if(!net)
+        {
+            Toast.makeText(this,"Network not available!",Toast.LENGTH_SHORT).show();
+            //Intent goHomeIntent = new Intent(this, StartActivity.class);
+            //startActivity(goHomeIntent);
+        }
+
         Bundle basket = getIntent().getExtras();
-        String livequiztitle="";
+        pbar = (ProgressBar)findViewById(R.id.progressBar2);
+
         if(basket != null) {
             livequiztitle = basket.getString("title");
         }
@@ -30,11 +64,13 @@ public class GetStatsActivity extends ActionBarActivity {
             //return null;
         }
         WebView myWebView = (WebView) findViewById(R.id.webview);
-        myWebView.setWebViewClient(new WebViewClient());
+        myWebView.setWebViewClient(new WebViewClient2());
         myWebView.loadUrl("http://webm.insta-quiz.appspot.com/getStats?quiztitle=" + livequiztitle);
+        //pbar.setVisibility(View.GONE);
     }
 
-    public class WebViewClient extends android.webkit.WebViewClient
+
+    public class WebViewClient2 extends android.webkit.WebViewClient
     {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -90,4 +126,13 @@ public class GetStatsActivity extends ActionBarActivity {
         Intent goHomeIntent = new Intent(GetStatsActivity.this, StartActivity.class);
         startActivity(goHomeIntent);
     }
+
+    public void refresh(View v)
+    {
+        Intent goRefreshIntent = new Intent(GetStatsActivity.this, GetStatsActivity.class);
+        goRefreshIntent.putExtra("title" , livequiztitle);
+        startActivity(goRefreshIntent);
+
+    }
+
 }

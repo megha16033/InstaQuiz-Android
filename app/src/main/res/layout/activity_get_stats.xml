@@ -3,32 +3,59 @@
     android:layout_height="match_parent"
     tools:context="com.example.mnrr.instaquizgui.GetStatsActivity"
     android:orientation="vertical"
+    android:background="@color/white"
     >
 
     <ProgressBar
-        android:id="@+id/progressBar1"
+        android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@color/white"/>
 
 
     <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/webview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/progressBar1"
+        android:layout_below="@+id/progressBar2"
         />
-
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:layout_gravity="center_horizontal"
-        android:text="Home"
-        android:onClick="goToHome"
-        android:layout_alignParentBottom="true"/>
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:paddingBottom="0dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:text="Home"
+            android:onClick="goToHome"
+            android:layout_weight="1"
+            android:layout_marginBottom="0dp"
+            android:textAllCaps="false"
+      />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:text="Refresh"
+            android:onClick="refresh"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+           />
+
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

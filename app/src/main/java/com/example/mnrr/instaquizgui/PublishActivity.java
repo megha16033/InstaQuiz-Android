@@ -1,6 +1,9 @@
 package com.example.mnrr.instaquizgui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,12 +28,29 @@ public class PublishActivity extends ActionBarActivity {
 
     ProgressBar pbar;
     String buttonsContent="";
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
         pbar = (ProgressBar)findViewById(R.id.progressBar1);
+        boolean net = isNetworkAvailable();
+        System.out.println("Net:"+net);
+        if(!net)
+        {
+            Toast.makeText(this, "Network not available!", Toast.LENGTH_SHORT).show();
+            //Intent goHomeIntent = new Intent(this, StartActivity.class);
+            //startActivity(goHomeIntent);
+        }
         new CreateButtonsTask().execute();
+
     }
 
     @Override
@@ -106,8 +127,7 @@ public class PublishActivity extends ActionBarActivity {
             System.out.println("buttonscontent:" + buttonsContent);
             String buttons[] = buttonsContent.split("; ");
             LinearLayout pbll = (LinearLayout)findViewById(R.id.publishButtons);
-            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             View.OnClickListener clicks=new View.OnClickListener() {
 
                 @Override
@@ -125,9 +145,11 @@ public class PublishActivity extends ActionBarActivity {
             {
                 Button button1=new Button(getApplicationContext());
                 button1.setText(buttons[i]);
+                //button1.setBackgroundColor(getResources().getColor(R.color.pink));
+
                 button1.setId(i);
                 button1.setOnClickListener(clicks);
-                pbll.addView(button1,lp);
+                pbll.addView(button1);
 
             }
         }
