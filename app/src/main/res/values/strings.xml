@@ -22,4 +22,5 @@
     <string name="title_activity_answer">AnswerActivity</string>
     <string name="title_activity_get_quiz">GetQuizActivity</string>
     <string name="title_activity_get_stats">GetStatsActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>

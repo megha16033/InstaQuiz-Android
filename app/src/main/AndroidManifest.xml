@@ -16,11 +16,7 @@
         <activity
             android:name=".StartActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" >
         </activity>
@@ -34,9 +30,8 @@
         </activity>
         <activity
             android:name=".AnswerActivity"
-            android:label="@string/title_activity_answer"
-            android:configChanges="screenSize|orientation">
-
+            android:configChanges="screenSize|orientation"
+            android:label="@string/title_activity_answer" >
         </activity>
         <activity
             android:name=".GetQuizActivity"
@@ -46,6 +41,22 @@
             android:name=".GetStatsActivity"
             android:label="@string/title_activity_get_stats" >
         </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SignUpActivity"
+            android:label="Sign Up" >
+
+        </activity>
+
     </application>
 
 </manifest>

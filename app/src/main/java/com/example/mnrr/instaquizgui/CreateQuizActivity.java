@@ -3,6 +3,7 @@ package com.example.mnrr.instaquizgui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -31,6 +32,8 @@ public class CreateQuizActivity extends ActionBarActivity {
     EditText option3Text = null;
     EditText option4Text = null;
     EditText answerText = null;
+    SharedPreferences sharedpreferences;
+    String username;
 
     String quiztitle="";
 
@@ -45,6 +48,10 @@ public class CreateQuizActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quiz);
+
+        sharedpreferences = getSharedPreferences("MyPref",Context.MODE_PRIVATE);
+        //this.sharedpreferences = getSharedPreferences("username", -1);
+        username = sharedpreferences.getString("username","");
 
         boolean net = isNetworkAvailable();
         if(!net)
@@ -136,7 +143,7 @@ public class CreateQuizActivity extends ActionBarActivity {
                 String op4 = option4Text.getText().toString();
                 String answer = answerText.getText().toString();
 
-                String url = "http://webm.insta-quiz.appspot.com/saveQuestion?quiztitle="+quiztitle+"&question="+question+"&op1="+op1+"&op2="+op2+"&op3="+op3+"&op4="+op4+"&answer="+answer;
+                String url = "http://webm.insta-quiz.appspot.com/saveQuestion?quiztitle="+quiztitle+"&question="+question+"&op1="+op1+"&op2="+op2+"&op3="+op3+"&op4="+op4+"&answer="+answer+"&username="+username;
                 doc = Jsoup.connect(url).get();
                 //System.out.println(doc);
             }

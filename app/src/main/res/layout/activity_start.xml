@@ -106,6 +106,16 @@
                 android:text="Answer"
                 android:textAllCaps="false"
                 android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/logoutbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:onClick="logout"
+                android:text="Log Out"
+                android:textAllCaps="false"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
     </LinearLayout>

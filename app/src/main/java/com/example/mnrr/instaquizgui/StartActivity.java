@@ -3,9 +3,11 @@ package com.example.mnrr.instaquizgui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +26,13 @@ import java.io.IOException;
 
 public class StartActivity extends Activity {
 
+    final int QUIZTIME = 1;
+
     ProgressBar pbar;
+    SharedPreferences sharedpreferences;
+    String username;
+    String livequiztitle;
+    String livequizcode;
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -36,6 +44,37 @@ public class StartActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        sharedpreferences = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+        username = sharedpreferences.getString("username","");
+        if(username.equals(""))
+        {
+            Toast.makeText(this,"Please Login!",Toast.LENGTH_SHORT).show();
+            Intent answerIntent = new Intent(StartActivity.this, LoginActivity.class);
+            //publishIntent.putExtra("buttons", buttonsContent);
+            startActivity(answerIntent);
+
+        }
+        livequiztitle = sharedpreferences.getString("livequiztitle","");
+        livequizcode = sharedpreferences.getString("livequizcode","");
+
+        if(!livequiztitle.equals("")&&!livequizcode.equals(""))
+        {
+            TextView livequiztexttext = (TextView)findViewById(R.id.livequiztext);
+            livequiztexttext.setVisibility(View.VISIBLE);
+
+            TextView livequiztitletext = (TextView)findViewById(R.id.livequiztitle);
+            livequiztitletext.setText(livequiztitle);
+            livequiztitletext.setVisibility(View.VISIBLE);
+
+            TextView livequizcodetext = (TextView)findViewById(R.id.livequizcode);
+            livequizcodetext.setText(livequizcode);
+            livequizcodetext.setVisibility(View.VISIBLE);
+
+            Button getstatbtn = (Button)findViewById(R.id.getstatbtn);
+            getstatbtn.setVisibility(View.VISIBLE);
+        }
+
+
         pbar = (ProgressBar)findViewById(R.id.progressBar2);
         boolean net = isNetworkAvailable();
         if(!net)
@@ -98,6 +137,7 @@ public class StartActivity extends Activity {
             try {
                 String url = "http://webm.insta-quiz.appspot.com/publishQuiz?quiztitle="+livequiztitle;
                  doc = Jsoup.connect(url).get();
+
                 //System.out.println(doc);
             }
             catch(IOException e)
@@ -115,6 +155,11 @@ public class StartActivity extends Activity {
             if(document!=null) {
                 System.out.println(document.select("p").text());
                 String text[] = document.select("p").text().split("-");
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("livequiztitle",text[0]);
+                editor.putString("livequizcode",text[1]);
+                editor.commit();
 
                 TextView livequiztexttext = (TextView)findViewById(R.id.livequiztext);
                 livequiztexttext.setVisibility(View.VISIBLE);
@@ -135,6 +180,20 @@ public class StartActivity extends Activity {
 
                 pbar.setVisibility(View.GONE);
 
+                //new EndQuizTask().execute();
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        new EndQuizTask().execute();
+                        Toast.makeText(getApplicationContext(),"Quiz ended !",Toast.LENGTH_SHORT).show();
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString("livequiztitle","");
+                        editor.putString("livequizcode","");
+                        editor.commit();
+                    }
+                }, QUIZTIME*60*1000);
             }
             else
             {
@@ -146,4 +205,57 @@ public class StartActivity extends Activity {
         }
 
     }
+
+    private class EndQuizTask extends AsyncTask<Void, Void, Document>{
+
+
+        @Override
+        protected Document doInBackground(Void... params)
+
+        {
+
+            Document doc=null;
+            try {
+                String url = "http://webm.insta-quiz.appspot.com/endQuiz?username="+username;
+                doc = Jsoup.connect(url).get();
+                //System.out.println(doc);
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+            return doc;
+        }
+
+        @Override
+        protected void onPostExecute(Document document) {
+            //if you had a ui element, you could display the title
+            //((TextView)findViewById (R.id.myTextView)).setText (result);
+            System.out.println("onpost-end quiz task");
+            if(document!=null) {
+                //System.out.println(document.select("p").text());
+
+            }
+            else
+            {
+                //Toast.makeText(getApplicationContext(),"Could not load document!",Toast.LENGTH_SHORT).show();
+            }
+            //EditText quiztitletext = (EditText)findViewById(R.id.quiztitle);
+            //quiztitletext.setText(prevquiztitle);
+
+        }
+
+    }
+
+    public void logout(View view)
+    {
+       // sharedpreferences = getSharedPreferences("MyPref",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("username", "");
+        editor.commit();
+        Intent logoutIntent = new Intent(StartActivity.this, HomeActivity.class);
+        startActivity(logoutIntent);
+
+    }
+
 }
