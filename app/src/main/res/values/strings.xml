@@ -23,4 +23,7 @@
     <string name="title_activity_get_quiz">GetQuizActivity</string>
     <string name="title_activity_get_stats">GetStatsActivity</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_polls">PollsActivity</string>
+    <string name="title_activity_add_polls">AddPollsActivity</string>
+    <string name="title_activity_upvote_poll">UpvotePollActivity</string>
 </resources>

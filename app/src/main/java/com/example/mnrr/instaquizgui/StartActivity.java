@@ -105,6 +105,13 @@ public class StartActivity extends Activity {
         startActivity(answerIntent);
     }
 
+    public void goToPolls(View v) throws IOException
+    {
+
+        Intent answerIntent = new Intent(StartActivity.this, TopicsActivity.class);
+        startActivity(answerIntent);
+    }
+
     public void getStats(View v)
     {
         Intent statsIntent = new Intent(StartActivity.this, GetStatsActivity.class);
