@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InstaQuizGUI</string>
+    <string name="app_name">InstaQuiz</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -14,16 +14,33 @@
         completions."
     </string>
     <string name="tag">In-Class Quizzes</string>
-    <string name="title_activity_publish">PublishActivity</string>
+    <string name="title_activity_publish">Publish Quiz</string>
+    <string name="server_client_id">40090518910-00srf6kb7sd0hjvtpv6hs0clocml7up2.apps.googleusercontent.com</string>
+
+    <string name="sign_out">Sign Out</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_create_quiz">CreateQuizActivity</string>
-    <string name="title_activity_answer">AnswerActivity</string>
-    <string name="title_activity_get_quiz">GetQuizActivity</string>
-    <string name="title_activity_get_stats">GetStatsActivity</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_activity_polls">PollsActivity</string>
-    <string name="title_activity_add_polls">AddPollsActivity</string>
-    <string name="title_activity_upvote_poll">UpvotePollActivity</string>
+    <string name="title_activity_create_quiz">Create Quiz</string>
+    <string name="title_activity_answer">Answer Quiz</string>
+    <string name="title_activity_get_quiz">Get Quiz</string>
+    <string name="title_activity_get_stats">Statistics</string>
+    <string name="title_activity_home">Home</string>
+    <string name="loading">Loading...</string>
+    <string name="signed_out">Sign Out</string>
+    <string name="title_activity_polls">Polls</string>
+    <string name="title_activity_add_polls">Add Poll</string>
+    <string name="title_activity_upvote_poll">Upvote Poll</string>
+    <string name="title_activity_splash">InstaQuiz</string>
+    <string name="title_activity_topics">Topics</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="home_button">Home</string>
+    <string name="publish_quiz">Publish Quiz</string>
+    <string name="submit_quiz">Answer Quiz</string>
+    <string name="polls">Polls</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
 </resources>

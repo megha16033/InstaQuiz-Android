@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -47,6 +48,8 @@ public class LoginActivity extends ActionBarActivity {
             Intent goStartIntent = new Intent(this, StartActivity.class);
             startActivity(goStartIntent);
         }
+//        TextView usernamet = (TextView) findViewById(R.id.username);
+//        usernamet.setText(username);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -61,27 +64,27 @@ public class LoginActivity extends ActionBarActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sign_up, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_sign_up, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     public void loginUser(View v) {
@@ -99,7 +102,8 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public void goToHome(View v) {
-        Intent goHomeIntent = new Intent(LoginActivity.this, StartActivity.class);
+        Intent goHomeIntent = new Intent(LoginActivity.this, HomeActivity.class);
+        finish();
         startActivity(goHomeIntent);
     }
 
@@ -154,6 +158,7 @@ public class LoginActivity extends ActionBarActivity {
 
 
                         Intent createQuizIntent = new Intent(LoginActivity.this, StartActivity.class);
+                        //finish();
                         startActivity(createQuizIntent);
                     }
                 }

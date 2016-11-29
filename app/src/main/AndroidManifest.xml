@@ -10,22 +10,26 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/instaquizicon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".StartActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:configChanges="screenSize|orientation">
         </activity>
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".LoginActivity"
+            android:configChanges="screenSize|orientation">
         </activity>
         <activity
             android:name=".PublishActivity"
-            android:label="@string/title_activity_publish" >
+            android:label="@string/title_activity_publish"
+            android:configChanges="screenSize|orientation">
         </activity>
         <activity
             android:name=".CreateQuizActivity"
-            android:label="@string/title_activity_create_quiz" >
+            android:label="@string/title_activity_create_quiz"
+            android:configChanges="screenSize|orientation">
         </activity>
         <activity
             android:name=".AnswerActivity"
@@ -34,15 +38,49 @@
         </activity>
         <activity
             android:name=".GetQuizActivity"
-            android:label="@string/title_activity_get_quiz" >
+            android:label="@string/title_activity_get_quiz"
+            android:configChanges="screenSize|orientation">
         </activity>
         <activity
             android:name=".GetStatsActivity"
-            android:label="@string/title_activity_get_stats" >
+            android:label="@string/title_activity_get_stats"
+            android:configChanges="screenSize|orientation">
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home" >
+            android:label="@string/title_activity_home"
+            android:configChanges="screenSize|orientation">
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="Sign Up"
+            android:configChanges="screenSize|orientation">
+        </activity>
+        <activity
+            android:name=".TopicsActivity"
+            android:label="@string/title_activity_topics"
+            android:configChanges="screenSize|orientation">
+        </activity>
+        <activity
+            android:name=".PollsActivity"
+            android:label="@string/title_activity_polls"
+            android:configChanges="screenSize|orientation"
+            android:parentActivityName=".TopicsActivity" >
+        </activity>
+        <activity
+            android:name=".AddPollsActivity"
+            android:label="@string/title_activity_add_polls"
+            android:configChanges="screenSize|orientation">
+        </activity>
+        <activity
+            android:name=".UpvotePollActivity"
+            android:label="@string/title_activity_upvote_poll"
+            android:configChanges="screenSize|orientation">
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/title_activity_splash"
+            android:configChanges="screenSize|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,24 +88,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
-            android:label="Sign Up" >
-        </activity>
-        <activity
-            android:name=".TopicsActivity"
-            android:label="@string/title_activity_polls" >
-        </activity>
-        <activity
-            android:name=".PollsActivity"
-            android:label="@string/title_activity_polls" >
-        </activity>
-        <activity
-            android:name=".AddPollsActivity"
-            android:label="@string/title_activity_add_polls" >
-        </activity>
-        <activity
-            android:name=".UpvotePollActivity"
-            android:label="@string/title_activity_upvote_poll" >
+            android:name=".StatisticsActivity"
+            android:label="@string/title_activity_statistics"
+            android:configChanges="screenSize|orientation">
         </activity>
     </application>
 

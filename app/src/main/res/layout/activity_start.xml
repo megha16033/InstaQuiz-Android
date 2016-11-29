@@ -1,132 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_start"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        >
+        android:fitsSystemWindows="true"
+        tools:context="com.example.gupta.navigation.MainActivity">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/app_name"
-            android:textSize="30dp"
-            android:textColor="@color/blue"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:text="@string/tag"
-            android:textSize="10dp"
-            android:textColor="@color/pink"/>
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-    <LinearLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/activity_start"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="@string/app_name"
+                    android:textSize="30dp"
+                    android:textColor="@color/blue"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:text="@string/tag"
+                    android:textSize="10dp"
+                    android:textColor="@color/pink"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ProgressBar
+                        android:id="@+id/progressBar2"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@color/white"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/livequiztext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:text="Live Quiz : "
+                        android:textSize="20dp"
+                        android:textColor="@color/green"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/livequiztitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:text="No Live Quiz"
+                        android:textSize="20dp"
+                        android:textColor="#000000"
+                        android:visibility="gone"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/livequizcode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text=""
+                    android:textSize="20dp"
+                    android:textColor="#000000"/>
+                <Button
+                    android:id="@+id/getstatbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:onClick="getStats"
+                    android:text="Get Stats"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:onClick="goToPublish"
+                        android:text="Publish"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"/>
+
+                    <Button
+                        android:id="@+id/answerbtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:onClick="goToAnswer"
+                        android:text="Answer"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"/>
+
+                    <Button
+                        android:id="@+id/pollbtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:onClick="goToPolls"
+                        android:text="Polls"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"/>
+
+                    <!--<Button-->
+                        <!--android:id="@+id/logoutbtn"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="20dp"-->
+                        <!--android:onClick="logout"-->
+                        <!--android:text="Log Out"-->
+                        <!--android:textAllCaps="false"-->
+                        <!--android:textColor="@color/white"/>-->
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:background="@color/white"
-            android:visibility="gone"/>
-        <TextView
-            android:id="@+id/livequiztext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="Live Quiz : "
-            android:textSize="20dp"
-            android:textColor="@color/green"
-            android:visibility="gone"/>
-        <TextView
-            android:id="@+id/livequiztitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="No Live Quiz"
-            android:textSize="20dp"
-            android:textColor="#000000"
-            android:visibility="gone"/>
-        </LinearLayout>
-        <TextView
-            android:id="@+id/livequizcode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text=""
-            android:textSize="20dp"
-            android:textColor="#000000"/>
-        <Button
-            android:id="@+id/getstatbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:onClick="getStats"
-            android:text="Get Stats"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:visibility="gone"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+</android.support.v4.widget.DrawerLayout>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:onClick="goToPublish"
-                android:text="Publish"
-                android:textAllCaps="false"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/answerbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:onClick="goToAnswer"
-                android:text="Answer"
-                android:textAllCaps="false"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/pollbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:onClick="goToPolls"
-                android:text="Polls"
-                android:textAllCaps="false"
-                android:textColor="@color/white"/>
-
-            <Button
-                android:id="@+id/logoutbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:onClick="logout"
-                android:text="Log Out"
-                android:textAllCaps="false"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>

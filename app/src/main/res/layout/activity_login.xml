@@ -53,6 +53,7 @@
 
             <EditText
                 android:id="@+id/password"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
@@ -69,7 +70,8 @@
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:text="Login"
-                android:onClick="loginUser"/>
+                android:onClick="loginUser"
+              />
         </LinearLayout>
 
         <Button
@@ -79,7 +81,8 @@
             android:gravity="center"
             android:layout_gravity="center|bottom"
             android:text="Home"
-            android:onClick="goToHome"/>
+            android:onClick="goToHome"
+           />
 
 
     </LinearLayout>

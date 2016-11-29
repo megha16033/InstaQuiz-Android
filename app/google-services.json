@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "40090518910",
+    "firebase_url": "https://instaquz.firebaseio.com",
+    "project_id": "instaquz",
+    "storage_bucket": "instaquz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40090518910:android:632cd91628cd9465",
+        "android_client_info": {
+          "package_name": "com.example.mnrr.instaquizgui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40090518910-217unkaeba6uepon1tnpmprd8ri67alb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mnrr.instaquizgui",
+            "certificate_hash": "F53CA7D9AD5714CBE5461ACCD3CB68132841DCDE"
+          }
+        },
+        {
+          "client_id": "40090518910-ed8qe55ubih6drhhp4kjri6n358tp6hn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mnrr.instaquizgui",
+            "certificate_hash": "0DC3BE34C88A35F334C27DEF17A602EA3AC5240F"
+          }
+        },
+        {
+          "client_id": "40090518910-00srf6kb7sd0hjvtpv6hs0clocml7up2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC33TLeV7rki0Ta_TBXQxRMx-TNsNfOVZ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40090518910-00srf6kb7sd0hjvtpv6hs0clocml7up2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -56,27 +56,27 @@ public class SignUpActivity extends ActionBarActivity {
         nameText = (EditText) findViewById(R.id.name);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sign_up, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_sign_up, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     public void addUser(View v) {
@@ -97,6 +97,7 @@ public class SignUpActivity extends ActionBarActivity {
 
     public void goToHome(View v) {
         Intent goHomeIntent = new Intent(SignUpActivity.this, StartActivity.class);
+        finish();
         startActivity(goHomeIntent);
     }
 
@@ -147,6 +148,7 @@ public class SignUpActivity extends ActionBarActivity {
                     {
                         Toast.makeText(getApplicationContext(), "You are successfully registered", Toast.LENGTH_SHORT).show();
                         Intent createQuizIntent = new Intent(SignUpActivity.this, HomeActivity.class);
+                        finish();
                         startActivity(createQuizIntent);
                     }
                 }

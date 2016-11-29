@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@color/nav_header_bg"
+    android:gravity="bottom"
+    android:orientation="vertical"
+android:layout_marginTop="20dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        >
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/profile_height"
+        android:layout_height="@dimen/profile_height"
+        android:paddingTop="8dp"
+        android:src="@drawable/ic_account_circle_black_48dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/nav_header_vertical_spacing"
+        android:text="New User"
+        android:textColor="#ffffff"
+        android:layout_gravity="center"
+        android:layout_below="@id/imageView"
+        android:textAlignment="center"
+        android:id="@+id/username"
+         />
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView"-->
+        <!--android:layout_below="@id/username"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textAlignment="center"-->
+        <!--android:text="newuser@iiitd.ac.in"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--/>-->
+</LinearLayout>
+</RelativeLayout>

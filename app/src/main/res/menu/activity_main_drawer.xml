@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/home_button" />
+        <item
+            android:id="@+id/publish_quiz"
+            android:icon="@drawable/ic_publish_black_24dp"
+            android:title="@string/publish_quiz" />
+        <item
+            android:id="@+id/answer_quiz"
+            android:icon="@drawable/ic_question_answer_black_24dp"
+            android:title="@string/submit_quiz" />
+        <item
+            android:id="@+id/polls"
+            android:icon="@drawable/ic_poll_black_24dp"
+            android:title="@string/polls" />
+    </group>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/logout"
+
+                android:title="@string/logout" />
+        </menu>
+    </item>
+
+</menu>

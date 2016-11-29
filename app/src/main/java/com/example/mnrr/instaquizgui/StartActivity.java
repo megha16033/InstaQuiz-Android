@@ -8,23 +8,37 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import android.support.design.widget.NavigationView;
 
 import java.io.IOException;
 
-public class StartActivity extends Activity {
+public class StartActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,GoogleApiClient.OnConnectionFailedListener {
+
+    private GoogleApiClient mGoogleApiClient;
 
     final int QUIZTIME = 1;
 
@@ -44,16 +58,40 @@ public class StartActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        // Slide menu -------------------
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        //-----------------------
+
         sharedpreferences = getSharedPreferences("MyPref", Context.MODE_PRIVATE);
         username = sharedpreferences.getString("username","");
         if(username.equals(""))
         {
             Toast.makeText(this,"Please Login!",Toast.LENGTH_SHORT).show();
             Intent answerIntent = new Intent(StartActivity.this, LoginActivity.class);
+            //finish();
             //publishIntent.putExtra("buttons", buttonsContent);
             startActivity(answerIntent);
 
         }
+
+
+        TextView usernamet = (TextView) findViewById(R.id.username);
+        usernamet.setText(username);
+
         livequiztitle = sharedpreferences.getString("livequiztitle","");
         livequizcode = sharedpreferences.getString("livequizcode","");
 
@@ -72,6 +110,9 @@ public class StartActivity extends Activity {
 
             Button getstatbtn = (Button)findViewById(R.id.getstatbtn);
             getstatbtn.setVisibility(View.VISIBLE);
+
+            Button answerbtn = (Button)findViewById(R.id.answerbtn);
+            answerbtn.setVisibility(View.GONE);
         }
 
 
@@ -84,6 +125,21 @@ public class StartActivity extends Activity {
             //startActivity(goHomeIntent);
         }
 
+        try{ GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.server_client_id))
+                .requestEmail()
+                .build();
+
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+        }catch(Exception e)
+        {
+
+        }
+
+
         new GetLiveQuizTask().execute();
     }
 
@@ -92,6 +148,7 @@ public class StartActivity extends Activity {
         //Document doc = Jsoup.connect("https://web.insta-quiz.appspot.com").get();
         //System.out.println(doc);
         Intent publishIntent = new Intent(StartActivity.this, PublishActivity.class);
+        //finish();
         //publishIntent.putExtra("buttons", buttonsContent);
         startActivity(publishIntent);
     }
@@ -101,9 +158,69 @@ public class StartActivity extends Activity {
         //Document doc = Jsoup.connect("https://web.insta-quiz.appspot.com").get();
         //System.out.println(doc);
         Intent answerIntent = new Intent(StartActivity.this, GetQuizActivity.class);
+        //finish();
         //publishIntent.putExtra("buttons", buttonsContent);
         startActivity(answerIntent);
     }
+
+    // ---------  Slide menu overriden methods code ----------------------
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.home) {
+
+            Intent startIntent = new Intent(StartActivity.this, StartActivity.class);
+            //finish();
+            startActivity(startIntent);
+
+        } else if (id == R.id.publish_quiz) {
+            Intent publishIntent = new Intent(StartActivity.this, PublishActivity.class);
+            //finish();
+            //publishIntent.putExtra("buttons", buttonsContent);
+            startActivity(publishIntent);
+
+        } else if (id == R.id.answer_quiz) {
+
+            Intent answerIntent = new Intent(StartActivity.this, GetQuizActivity.class);
+            //finish();
+            //publishIntent.putExtra("buttons", buttonsContent);
+            startActivity(answerIntent);
+
+        } else if (id == R.id.polls) {
+
+            Intent answerIntent = new Intent(StartActivity.this, TopicsActivity.class);
+            //finish();
+            startActivity(answerIntent);
+            //Intent intent = new Intent(this, StatisticsActivity.class);
+            //startActivity(intent);
+
+        } else if (id == R.id.logout) {
+
+            logout();
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    // --------------------------------------------------------------------------------
+
+
+
 
     public void goToPolls(View v) throws IOException
     {
@@ -114,11 +231,17 @@ public class StartActivity extends Activity {
 
     public void getStats(View v)
     {
-        Intent statsIntent = new Intent(StartActivity.this, GetStatsActivity.class);
+        Intent statsIntent = new Intent(StartActivity.this, StatisticsActivity.class);
+        //finish();
         TextView title = (TextView) findViewById(R.id.livequiztitle);
         statsIntent.putExtra("title" , title.getText().toString());
         startActivity(statsIntent);
 
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Toast.makeText(this,"Network Error!!",Toast.LENGTH_SHORT);
     }
 
     private class GetLiveQuizTask extends AsyncTask<Void, Void, Document>{
@@ -135,16 +258,15 @@ public class StartActivity extends Activity {
 
                 livequiztitle = basket.getString("livequiztitle");
             }
-            if(livequiztitle.equals("")||livequiztitle==null)
+            if(livequiztitle==null || livequiztitle.equals(""))
             {
                 return null;
             }
-            pbar.setVisibility(View.VISIBLE);
+            //pbar.setVisibility(View.VISIBLE);
             Document doc=null;
             try {
-                String url = "http://webm.insta-quiz.appspot.com/publishQuiz?quiztitle="+livequiztitle;
+                String url = "http://webm.insta-quiz.appspot.com/publishQuiz?quiztitle="+livequiztitle+"&username="+username;
                  doc = Jsoup.connect(url).get();
-
                 //System.out.println(doc);
             }
             catch(IOException e)
@@ -197,8 +319,13 @@ public class StartActivity extends Activity {
                         Toast.makeText(getApplicationContext(),"Quiz ended !",Toast.LENGTH_SHORT).show();
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("livequiztitle","");
-                        editor.putString("livequizcode","");
+                        editor.putString("livequizcode", "");
                         editor.commit();
+                        Intent start = new Intent(getApplicationContext(),StatisticsActivity.class);
+                        TextView title = (TextView) findViewById(R.id.livequiztitle);
+                        start.putExtra("title" , title.getText().toString());
+                        startActivity(start);
+
                     }
                 }, QUIZTIME*60*1000);
             }
@@ -257,12 +384,42 @@ public class StartActivity extends Activity {
     public void logout(View view)
     {
        // sharedpreferences = getSharedPreferences("MyPref",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("username", "");
-        editor.commit();
-        Intent logoutIntent = new Intent(StartActivity.this, HomeActivity.class);
-        startActivity(logoutIntent);
+//        SharedPreferences.Editor editor = sharedpreferences.edit();
+//        editor.putString("username", "");
+//        editor.commit();
+//        Intent logoutIntent = new Intent(StartActivity.this, HomeActivity.class);
+//        startActivity(logoutIntent);
+        logout();
 
+    }
+
+    public void logout()
+    {
+
+            // sharedpreferences = getSharedPreferences("MyPref",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("username", "");
+            editor.commit();
+
+        try {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(Status status) {
+                            // [START_EXCLUDE]
+                            // updateUI(false);
+                            // [END_EXCLUDE]
+                            Intent logoutIntent = new Intent(getApplicationContext(), HomeActivity.class);
+                            startActivity(logoutIntent);
+                            finish();
+                        }
+                    });
+        }catch(Exception e)
+        {
+
+        }
+            Intent logoutIntent = new Intent(StartActivity.this, HomeActivity.class);
+            startActivity(logoutIntent);
     }
 
 }
